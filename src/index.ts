@@ -25,7 +25,7 @@ function towerOfHanoi(
   // if the user inputs 1, there is only 1 step
   if (userInput === 1) {
     console.log(`Disk ${userInput} from peg ${startPeg} to peg ${endPeg}`)
-  // completes formula to move disk 1 to peg 3, etc
+    // completes formula to move disk 1 to peg 3, etc
   } else {
     towerOfHanoi(userInput - 1, startPeg, 6 - startPeg - endPeg)
     console.log(`Disk ${userInput} from peg ${startPeg} to peg ${endPeg}`)
