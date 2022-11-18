@@ -1,87 +1,50 @@
 /**
  * The program is the classic
- * what binarySearch program
+ * what towerOfHanoi program
  *
  * By:      Jackson Naufal
  * Version: 1.0
- * Since:   2020-11-13
+ * Since:   2020-11-18
  */
 
 import promptSync from 'prompt-sync'
 
 /**
  *
- * This is the binarySearch function.
+ * This is the towerOfHanoi function.
  *
- * @param {number} arr the array.
- * @param {number} tar the target.
- * @param {number} lowIndex the lowIndex.
- * @param {number} highIndex the high index
- * @returns {number} the factorial of the number.
+ * @param {number} userInput of disks
+ * @param {number} startPeg the first peg
+ * @param {number} endPeg the last peg
  */
-function binarySearch(
-  arr: number[],
-  tar: number,
-  lowIndex: number,
-  highIndex: number
-): number {
-  if (lowIndex > highIndex) {
-    return -1
-  }
-
-  // Find the middle index
-  const middle = Math.floor((lowIndex + highIndex) / 2)
-
-  if (arr[middle] === tar) {
-    return middle
-  }
-
-  if (arr[middle] > tar) {
-    return binarySearch(arr, tar, lowIndex, middle - 1)
+function towerOfHanoi(
+  userInput: number,
+  startPeg: number,
+  endPeg: number
+): void {
+  // if the user inputs 1, there is only 1 step
+  if (userInput === 1) {
+    console.log(`Disk ${userInput} from peg ${startPeg} to peg ${endPeg}`)
+  // completes formula to move disk 1 to peg 3, etc
   } else {
-    return binarySearch(arr, tar, middle + 1, highIndex)
+    towerOfHanoi(userInput - 1, startPeg, 6 - startPeg - endPeg)
+    console.log(`Disk ${userInput} from peg ${startPeg} to peg ${endPeg}`)
+    towerOfHanoi(userInput - 1, 6 - startPeg - endPeg, endPeg)
   }
 }
 
 const prompt = promptSync()
 
-// The variables
-const min = 1
-const max = 999
-const arraySize = 250
-
-// The array size
-const numArray = new Array(arraySize)
-
-// Getting the random numbers for the array
-for (let counter = 0; counter < numArray.length; counter++) {
-  numArray[counter] = Math.floor(Math.random() * max + min)
-}
-
-// sorting the array
-numArray.sort(function (a, b) {
-  return a - b
-})
-
 // Asks for the users input
-console.log('\nBinary Search Program')
-console.log('Sorted List of numbers: ')
-
-// the elements in the array.
-// https://stackoverflow.com/questions/56262258/how-to-print-array-elements
-for (let counter = 0; counter < numArray.length; counter++) {
-  process.stdout.write(`${String(numArray[counter])},`)
-}
+console.log('This is a tower of hanoi program')
 
 // asks for the user input
-console.log('')
-console.log('')
-const userInput = Number(
-  prompt('Enter a number in array (Between 0 and 999): ')
-)
+const userNum = Number(prompt('Enter how many disks (1 - inf) '))
 
-// What index it is in
-console.log(
-  `Your number is in the ${binarySearch(numArray, userInput, 0, arraySize - 1)}`
-)
+// Checks inputs validity
+if (isNaN(userNum)) {
+  console.log('Invalid Input')
+} else {
+  towerOfHanoi(userNum, 1, 3)
+}
 console.log('\nDone.')
